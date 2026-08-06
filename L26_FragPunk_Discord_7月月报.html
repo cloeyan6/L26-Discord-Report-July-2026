@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L26 FragPunk Discord 社区月报 · 2026年7月</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter','PingFang SC','Microsoft YaHei',sans-serif; background:#eef0f5; color:#1e293b; line-height:1.6; }
+  .container { max-width:1240px; margin:0 auto; padding:0 24px; }
+
+  /* ===== Header ===== */
+  .top-nav { background:linear-gradient(135deg,#1a1f4d 0%,#1e2057 60%,#232860 100%); color:#fff; padding:22px 0 0; position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(26,31,77,0.25); }
+  .top-nav .nav-head { display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding-bottom:18px; }
+  .top-nav .logo-dots { display:flex; gap:5px; }
+  .top-nav .logo-dots span { width:11px; height:11px; border-radius:50%; background:#7c7ffa; }
+  .top-nav .logo-dots span:nth-child(2){ background:#a78bfa; }
+  .top-nav .brand { font-size:19px; font-weight:800; letter-spacing:0.3px; }
+  .top-nav .period-badge { font-size:12px; font-weight:600; color:#c7d2fe; border:1px solid #4f46e5; background:rgba(99,102,241,0.18); padding:3px 12px; border-radius:20px; }
+  .top-nav .period-range { font-size:12px; color:#94a3b8; }
+  .top-nav .nav-right { margin-left:auto; font-size:12px; color:#94a3b8; }
+  .nav-tabs { display:flex; gap:6px; flex-wrap:wrap; }
+  .nav-tab { font-size:13px; font-weight:600; color:#c7d2fe; padding:11px 20px; border-radius:10px 10px 0 0; cursor:pointer; border:none; background:transparent; transition:all .15s; }
+  .nav-tab:hover { color:#fff; background:rgba(255,255,255,0.06); }
+  .nav-tab.active { color:#1e2057; background:#eef0f5; }
+
+  main { padding-top:32px; padding-bottom:40px; }
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; }
+
+  /* ===== Section title ===== */
+  .sec-title { display:flex; align-items:baseline; gap:12px; margin:36px 0 18px; }
+  .sec-title:first-child { margin-top:0; }
+  .sec-title .bar { width:4px; align-self:stretch; min-height:26px; border-radius:3px; background:linear-gradient(180deg,#6366f1,#818cf8); }
+  .sec-title h2 { font-size:21px; font-weight:800; color:#1e293b; }
+  .sec-title .sub { font-size:13px; color:#94a3b8; font-weight:400; }
+
+  /* ===== Cards ===== */
+  .card { background:#fff; border:1px solid #e6e8f0; border-radius:14px; box-shadow:0 1px 3px rgba(30,41,59,0.05); margin-bottom:18px; }
+  .card-pad { padding:22px 24px; }
+  .highlight-card { background:#fff; border:1px solid #e6e8f0; border-left:4px solid #6366f1; border-radius:10px; padding:16px 20px; margin-bottom:22px; box-shadow:0 1px 3px rgba(30,41,59,0.05); }
+  .highlight-card .hc-title { font-size:13px; font-weight:700; color:#4f46e5; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+  .highlight-card .hc-title::before { content:''; width:8px; height:8px; border-radius:50%; background:#6366f1; display:inline-block; }
+  .highlight-card p { font-size:14px; color:#334155; line-height:1.75; }
+
+  /* ===== KPI ===== */
+  .kpi-row { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:8px; }
+  @media(max-width:820px){ .kpi-row{ grid-template-columns:1fr; } }
+  .kpi-card { background:#fff; border:1px solid #e6e8f0; border-radius:14px; padding:0; overflow:hidden; box-shadow:0 1px 3px rgba(30,41,59,0.05); }
+  .kpi-card .kpi-topbar { height:4px; width:100%; }
+  .kpi-card .kpi-inner { padding:18px 22px 16px; }
+  .kpi-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .kpi-head .kpi-name { font-size:13px; color:#64748b; font-weight:600; }
+  .kpi-head .kpi-info { width:16px; height:16px; border-radius:50%; background:#f1f5f9; color:#94a3b8; font-size:11px; display:flex; align-items:center; justify-content:center; }
+  .kpi-value { font-size:42px; font-weight:800; color:#1e293b; letter-spacing:-1px; line-height:1.1; }
+  .kpi-change { font-size:12px; font-weight:600; margin-top:6px; }
+  .kpi-change.up { color:#10b981; }
+  .kpi-change.down { color:#ef4444; }
+  .kpi-change.flat { color:#94a3b8; }
+  .kpi-desc { font-size:11px; color:#94a3b8; margin-top:8px; line-height:1.5; }
+
+  /* ===== Insight cards ===== */
+  .insight-row { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media(max-width:820px){ .insight-row{ grid-template-columns:1fr; } }
+  .insight-c { background:#fff; border:1px solid #e6e8f0; border-left:4px solid #10b981; border-radius:10px; padding:16px 18px; box-shadow:0 1px 3px rgba(30,41,59,0.05); }
+  .insight-c.green { border-left-color:#10b981; }
+  .insight-c.orange { border-left-color:#f59e0b; }
+  .insight-c.pink { border-left-color:#f472b6; }
+  .insight-c.blue { border-left-color:#6366f1; }
+  .insight-c .ic-title { font-size:14px; font-weight:700; color:#1e293b; margin-bottom:7px; }
+  .insight-c p { font-size:12.5px; color:#64748b; line-height:1.7; }
+
+  /* ===== Chart ===== */
+  .chart-card { background:#fff; border:1px solid #e6e8f0; border-radius:14px; padding:20px 24px; margin-bottom:16px; box-shadow:0 1px 3px rgba(30,41,59,0.05); }
+  .chart-head { margin-bottom:18px; }
+  .chart-head .ch-title { font-size:15px; font-weight:700; color:#1e293b; }
+  .chart-head .ch-sub { font-size:11.5px; color:#94a3b8; margin-top:3px; }
+  .bar-chart { display:flex; align-items:flex-end; justify-content:space-around; height:210px; padding:0 10px; border-left:1px solid #e6e8f0; border-bottom:1px solid #e6e8f0; position:relative; gap:8px; }
+  .grid-line { position:absolute; left:0; right:0; border-top:1px dashed #eef0f5; }
+  .grid-label { position:absolute; left:-34px; font-size:10px; color:#cbd5e1; transform:translateY(-50%); }
+  .bar-col { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; position:relative; z-index:2; }
+  .bar-fill { width:64%; max-width:80px; border-radius:6px 6px 0 0; position:relative; transition:height .4s; }
+  .bar-fill .bar-val { position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:12px; font-weight:700; color:#475569; white-space:nowrap; }
+  .bar-xlabel { font-size:11px; color:#94a3b8; margin-top:8px; font-weight:600; }
+  .chart-legend { display:flex; justify-content:center; gap:22px; margin-top:14px; flex-wrap:wrap; }
+  .chart-legend .lg { display:flex; align-items:center; gap:6px; font-size:11.5px; color:#64748b; }
+  .chart-legend .lg .dot { width:11px; height:11px; border-radius:3px; }
+  .chart-legend .lg .line-dot { width:16px; height:3px; border-radius:2px; }
+
+  /* ===== Strategy / plan ===== */
+  .strat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:16px 0 22px; }
+  @media(max-width:820px){ .strat-row{ grid-template-columns:1fr; } }
+  .strat-c { display:flex; gap:12px; align-items:flex-start; background:#f8fafc; border:1px solid #eef0f5; border-radius:10px; padding:14px 16px; }
+  .strat-num { flex-shrink:0; width:28px; height:28px; border-radius:50%; background:#6366f1; color:#fff; font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .strat-c .st-body h5 { font-size:13.5px; font-weight:700; color:#1e293b; margin-bottom:3px; }
+  .strat-c .st-body p { font-size:11.5px; color:#64748b; line-height:1.6; }
+  .week-row { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  @media(max-width:820px){ .week-row{ grid-template-columns:1fr 1fr; } }
+  .week-c { background:#fff; border:1px solid #e6e8f0; border-radius:12px; padding:16px; box-shadow:0 1px 2px rgba(30,41,59,0.04); }
+  .week-c .wk-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+  .week-c .wk-num { font-size:15px; font-weight:800; color:#6366f1; }
+  .week-c .wk-date { font-size:11px; color:#94a3b8; }
+  .week-c .wk-theme { font-size:13px; font-weight:700; color:#1e293b; margin-bottom:10px; }
+  .week-c ul { list-style:none; }
+  .week-c li { font-size:11.5px; color:#475569; line-height:1.5; margin-bottom:8px; display:flex; align-items:flex-start; gap:6px; }
+  .week-c li::before { content:''; width:6px; height:6px; border-radius:50%; background:#10b981; margin-top:6px; flex-shrink:0; }
+  .chip { display:inline-block; font-size:10px; font-weight:600; padding:1px 7px; border-radius:8px; margin-left:4px; }
+  .chip.inc { background:#dbeafe; color:#1d4ed8; }
+  .chip.act { background:#ede9fe; color:#6d28d9; }
+  .chip.ret { background:#d1fae5; color:#047857; }
+  .chip.eco { background:#fef3c7; color:#b45309; }
+
+  /* ===== Activity ===== */
+  .stat-inline { display:flex; gap:26px; flex-wrap:wrap; margin-top:12px; }
+  .stat-inline .si { font-size:13px; color:#475569; }
+  .stat-inline .si b { font-size:18px; font-weight:800; color:#1e293b; margin:0 3px; }
+  .sub-block { background:#f8fafc; border-radius:10px; padding:14px 16px; margin-top:14px; }
+  .sub-block .sb-title { font-size:12.5px; font-weight:700; color:#4f46e5; margin-bottom:8px; }
+  .sub-block ul { list-style:none; }
+  .sub-block li { font-size:12.5px; color:#475569; line-height:1.7; margin-bottom:6px; display:flex; gap:7px; align-items:flex-start; }
+  .sub-block li::before { content:''; width:6px; height:6px; border-radius:50%; background:#6366f1; margin-top:7px; flex-shrink:0; }
+  .rank-table { width:100%; border-collapse:collapse; }
+  .rank-table th { background:#f5f6fa; padding:11px 14px; font-size:11.5px; font-weight:600; color:#64748b; text-align:left; border-bottom:1px solid #e6e8f0; }
+  .rank-table td { padding:13px 14px; font-size:13px; border-bottom:1px solid #f1f5f9; color:#334155; }
+  .rank-table tr:last-child td { border-bottom:none; }
+  .rank-table .medal { font-size:16px; }
+  .rank-table .score { font-weight:800; }
+  .rank-note { font-size:11px; color:#94a3b8; margin-top:10px; }
+  .ongoing-tag { display:inline-block; font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px; background:#dbeafe; color:#1d4ed8; margin-left:8px; }
+
+  .act-detail { border:1px solid #e6e8f0; border-radius:12px; margin-bottom:14px; overflow:hidden; }
+  .act-detail .ad-head { display:flex; align-items:center; gap:10px; padding:16px 20px; flex-wrap:wrap; }
+  .ad-badge { width:26px; height:26px; border-radius:8px; color:#fff; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .ad-title { font-size:15px; font-weight:700; color:#1e293b; }
+  .ad-meta { margin-left:auto; font-size:11.5px; color:#94a3b8; display:flex; gap:14px; align-items:center; }
+  .ad-body { padding:0 20px 18px; }
+  .think-box { background:#fffbeb; border:1px solid #fde68a; border-radius:8px; padding:12px 15px; margin-bottom:14px; font-size:12.5px; color:#92400e; line-height:1.7; }
+  .think-box b { color:#b45309; }
+  .detail-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:14px; }
+  @media(max-width:820px){ .detail-grid{ grid-template-columns:1fr 1fr; } }
+  .detail-c { border:1px solid #eef0f5; border-radius:10px; padding:12px 14px; border-top:3px solid #6366f1; }
+  .detail-c.purple { border-top-color:#8b5cf6; }
+  .detail-c.blue { border-top-color:#3b82f6; }
+  .detail-c.orange { border-top-color:#f59e0b; }
+  .detail-c.green { border-top-color:#10b981; }
+  .detail-c .dc-label { font-size:11.5px; font-weight:700; color:#475569; margin-bottom:5px; }
+  .detail-c p { font-size:11.5px; color:#64748b; line-height:1.6; }
+  .prog-bar { display:flex; height:12px; border-radius:6px; overflow:hidden; margin:12px 0 8px; }
+  .prog-legend { display:flex; gap:18px; flex-wrap:wrap; }
+  .prog-legend .pl { font-size:11.5px; color:#64748b; display:flex; align-items:center; gap:5px; }
+  .prog-legend .pl .dot { width:9px; height:9px; border-radius:50%; }
+  .quote-line { border-left:3px solid #cbd5e1; background:#f8fafc; padding:9px 13px; margin-top:10px; border-radius:0 6px 6px 0; font-size:12px; color:#64748b; font-style:italic; }
+  .quote-line.green { border-left-color:#10b981; background:#f0fdf4; }
+  .quote-line.red { border-left-color:#ef4444; background:#fef2f2; }
+
+  /* ===== Sentiment ===== */
+  .senti-overview { display:grid; grid-template-columns:280px 1fr; gap:26px; align-items:center; }
+  @media(max-width:820px){ .senti-overview{ grid-template-columns:1fr; } }
+  .donut-wrap { text-align:center; }
+  .senti-read { display:flex; flex-direction:column; gap:10px; }
+  .senti-read .sr { border:1px solid #e6e8f0; border-left:4px solid #10b981; border-radius:9px; padding:11px 15px; }
+  .senti-read .sr.green { border-left-color:#10b981; }
+  .senti-read .sr.red { border-left-color:#ef4444; }
+  .senti-read .sr.blue { border-left-color:#60a5fa; }
+  .senti-read .sr .sr-top { font-size:13px; font-weight:700; margin-bottom:2px; }
+  .senti-read .sr.green .sr-top { color:#047857; }
+  .senti-read .sr.red .sr-top { color:#b91c1c; }
+  .senti-read .sr.blue .sr-top { color:#1d4ed8; }
+  .senti-read .sr p { font-size:11.5px; color:#64748b; line-height:1.55; }
+  .week-mini-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:18px; }
+  @media(max-width:820px){ .week-mini-row{ grid-template-columns:1fr 1fr; } }
+  .week-mini { background:#f8fafc; border-radius:10px; padding:12px 14px; text-align:center; }
+  .week-mini .wm-num { font-size:13px; font-weight:800; color:#1e293b; }
+  .week-mini .wm-msg { font-size:11px; color:#94a3b8; margin:4px 0 6px; }
+  .week-mini .wm-pct { font-size:11px; color:#64748b; }
+  .week-mini .wm-pct .g { color:#10b981; font-weight:700; }
+  .week-mini .wm-pct .r { color:#ef4444; font-weight:700; }
+  .stack-chart { display:flex; align-items:flex-end; justify-content:space-around; height:200px; gap:20px; padding:0 10px; border-left:1px solid #e6e8f0; border-bottom:1px solid #e6e8f0; }
+  .stack-col { flex:1; max-width:90px; display:flex; flex-direction:column; justify-content:flex-end; height:100%; }
+  .stack-seg { width:100%; }
+  .stack-seg:first-child { border-radius:6px 6px 0 0; }
+  .stack-xlabel { text-align:center; font-size:11px; color:#94a3b8; margin-top:8px; font-weight:600; }
+  .senti-detail { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media(max-width:820px){ .senti-detail{ grid-template-columns:1fr; } }
+  .senti-col h4 { font-size:13.5px; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:7px; }
+  .senti-col.pos h4 { color:#047857; }
+  .senti-col.neg h4 { color:#b91c1c; }
+  .senti-topic { border:1px solid #e6e8f0; border-radius:10px; padding:13px 15px; margin-bottom:11px; }
+  .senti-topic .tp-head { display:flex; align-items:center; gap:8px; margin-bottom:5px; }
+  .senti-topic .tp-rank { width:22px; height:22px; border-radius:50%; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .senti-col.pos .tp-rank { background:rgba(16,185,129,0.15); color:#047857; }
+  .senti-col.neg .tp-rank { background:rgba(239,68,68,0.15); color:#b91c1c; }
+  .senti-topic .tp-title { font-size:12.5px; font-weight:700; color:#1e293b; }
+  .senti-topic .tp-desc { font-size:11.5px; color:#64748b; line-height:1.6; margin-left:30px; }
+
+  /* ===== MOD ===== */
+  .mod-kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:8px; }
+  @media(max-width:820px){ .mod-kpi-row{ grid-template-columns:1fr 1fr; } }
+  .mod-kpi { background:#fff; border:1px solid #e6e8f0; border-radius:14px; padding:18px 20px; text-align:center; box-shadow:0 1px 3px rgba(30,41,59,0.05); border-top:4px solid #10b981; }
+  .mod-kpi .mk-val { font-size:32px; font-weight:800; color:#1e293b; }
+  .mod-kpi .mk-lbl { font-size:12px; color:#64748b; margin-top:4px; }
+  .mod-table { width:100%; border-collapse:collapse; }
+  .mod-table th { background:#f5f6fa; padding:11px 14px; font-size:11.5px; font-weight:600; color:#64748b; text-align:left; border-bottom:1px solid #e6e8f0; }
+  .mod-table td { padding:12px 14px; font-size:13px; border-bottom:1px solid #f1f5f9; color:#334155; }
+  .mod-table tr:last-child td { border-bottom:none; }
+  .badge-ok { display:inline-block; font-size:11px; font-weight:600; padding:2px 10px; border-radius:10px; background:#d1fae5; color:#047857; }
+
+  /* ===== Competitor ===== */
+  .comp-table { width:100%; border-collapse:collapse; }
+  .comp-table th { background:#f5f6fa; padding:11px 14px; font-size:11.5px; font-weight:600; color:#64748b; text-align:left; border-bottom:1px solid #e6e8f0; }
+  .comp-table td { padding:13px 14px; font-size:13px; border-bottom:1px solid #f1f5f9; color:#334155; }
+  .comp-table tr:last-child td { border-bottom:none; }
+  .comp-table .row-hl { background:linear-gradient(90deg,rgba(99,102,241,0.07),rgba(99,102,241,0.02)); }
+  .comp-table .up { color:#10b981; font-weight:700; }
+  .btn-view { font-size:11px; font-weight:600; padding:3px 12px; border-radius:14px; }
+  .btn-view.active { background:#6366f1; color:#fff; }
+  .btn-view.plain { background:#f1f5f9; color:#64748b; }
+  .timeline-2col { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  @media(max-width:820px){ .timeline-2col{ grid-template-columns:1fr; } }
+  .tl-col h4 { font-size:14px; font-weight:700; color:#1e293b; margin-bottom:14px; display:flex; align-items:center; gap:7px; }
+  .tl-item { border-left:2px solid #e6e8f0; padding:0 0 18px 16px; position:relative; }
+  .tl-item:last-child { padding-bottom:0; }
+  .tl-item::before { content:''; position:absolute; left:-6px; top:3px; width:10px; height:10px; border-radius:50%; background:#6366f1; border:2px solid #fff; }
+  .tl-item .tl-top { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:3px; flex-wrap:wrap; }
+  .tl-item .tl-date { font-size:11px; color:#94a3b8; }
+  .tl-item .tl-heat { font-size:11px; font-weight:700; color:#10b981; }
+  .tl-item .tl-heat.down { color:#ef4444; }
+  .tl-item .tl-title { font-size:13px; font-weight:700; color:#1e293b; margin-bottom:3px; }
+  .tl-item .tl-desc { font-size:11.5px; color:#64748b; line-height:1.6; }
+
+  /* ===== Footer ===== */
+  .foot { display:flex; justify-content:space-between; padding:22px 0; margin-top:30px; border-top:1px solid #e6e8f0; font-size:11.5px; color:#94a3b8; flex-wrap:wrap; gap:8px; }
+</style>
+</head>
+<body>
+
+<!-- ===================== TOP NAV ===================== -->
+<div class="top-nav">
+  <div class="container">
+    <div class="nav-head">
+      <div class="logo-dots"><span></span><span></span></div>
+      <span class="brand">L26 FragPunk Discord 社区月报</span>
+      <span class="period-badge">2026年7月</span>
+      <span class="period-range">2026.07.01 - 07.31</span>
+      <span class="nav-right">面向游戏主营团队 · 内部参考</span>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showTab(event,'t1')">社区数据 · 提升规划</button>
+      <button class="nav-tab" onclick="showTab(event,'t2')">社区活动</button>
+      <button class="nav-tab" onclick="showTab(event,'t3')">社区舆情</button>
+      <button class="nav-tab" onclick="showTab(event,'t4')">MOD 管理员</button>
+      <button class="nav-tab" onclick="showTab(event,'t5')">竞品动态</button>
+    </div>
+  </div>
+</div>
+
+<main class="container">
+
+<!-- ===================== TAB 1: 社区数据·提升规划 ===================== -->
+<section id="t1" class="tab-panel active">
+
+  <div class="highlight-card">
+    <div class="hc-title">月度核心判断</div>
+    <p>2026年7月社区数据整体稳定，月活率 15.56%（环比 +4.42%）逆势上升，长线实事热点活动有效拉升了浏览与互动；总发言量 46,235 条（环比 -12.76%）随产品内容节奏自然回落，核心玩家人均发言量基本持平。8月将结合端内「海滨沙滩」主题与常态化社区活动维持活跃，为 9 月高关注模式返场与 10 月新核心玩法测试做基建筹备。</p>
+  </div>
+
+  <div class="sec-title"><div class="bar"></div><h2>核心生态数据</h2><span class="sub">月度核心指标</span></div>
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-topbar" style="background:#8b5cf6;"></div>
+      <div class="kpi-inner">
+        <div class="kpi-head"><span class="kpi-name">社区规模</span><span class="kpi-info">i</span></div>
+        <div class="kpi-value">186,616</div>
+        <div class="kpi-change down">↘ 环比上月 -1.24%（-2,511）</div>
+        <div class="kpi-desc">当前社区成员总数，流失幅度较6月收窄</div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-topbar" style="background:#6366f1;"></div>
+      <div class="kpi-inner">
+        <div class="kpi-head"><span class="kpi-name">月活用户占比</span><span class="kpi-info">i</span></div>
+        <div class="kpi-value">15.56%</div>
+        <div class="kpi-change up">↗ 环比上月 +4.42%</div>
+        <div class="kpi-desc">月内有发言或互动的唯一用户占比</div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-topbar" style="background:#f59e0b;"></div>
+      <div class="kpi-inner">
+        <div class="kpi-head"><span class="kpi-name">新用户7日留存</span><span class="kpi-info">i</span></div>
+        <div class="kpi-value">24.8%</div>
+        <div class="kpi-change down">↘ 环比上月 -7.11%</div>
+        <div class="kpi-desc">新进群用户7天后仍留在社区的比例，属周期性波动</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title"><div class="bar"></div><h2>辅助参考数据</h2><span class="sub">消息活跃度指标</span></div>
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-topbar" style="background:#6366f1;"></div>
+      <div class="kpi-inner">
+        <div class="kpi-head"><span class="kpi-name">消息总数</span><span class="kpi-info">i</span></div>
+        <div class="kpi-value">46,235</div>
+        <div class="kpi-change down">↘ 环比上月 -12.76%</div>
+        <div class="kpi-desc">月内全服务器消息总量，随产品内容节奏波动</div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-topbar" style="background:#10b981;"></div>
+      <div class="kpi-inner">
+        <div class="kpi-head"><span class="kpi-name">聊天人数</span><span class="kpi-info">i</span></div>
+        <div class="kpi-value">1,656</div>
+        <div class="kpi-change down">↘ 环比上月 -14.51%</div>
+        <div class="kpi-desc">月内有发言的唯一用户数</div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-topbar" style="background:#3b82f6;"></div>
+      <div class="kpi-inner">
+        <div class="kpi-head"><span class="kpi-name">人均聊天消息数</span><span class="kpi-info">i</span></div>
+        <div class="kpi-value">27.92</div>
+        <div class="kpi-change flat">— 环比上月 -1.31%（基本持平）</div>
+        <div class="kpi-desc">消息总数÷聊天人数，核心玩家发言强度稳定</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title"><div class="bar"></div><h2>核心洞察</h2><span class="sub">基于本月数据波动的关键发现</span></div>
+  <div class="insight-row">
+    <div class="insight-c green">
+      <div class="ic-title">月活率逆势上升，实事热点活动见效</div>
+      <p>7月月活率达 15.56%，环比 +4.42%。「界外预言家」借助世界杯热点持续带动浏览与互动，说明在产品内容空窗期，借势外部热点的长线活动能够有效维持社区触达面。</p>
+    </div>
+    <div class="insight-c blue">
+      <div class="ic-title">核心玩家粘性稳固，社区基本盘健康</div>
+      <p>人均聊天 27.92 条，环比仅 -1.31%，基本持平；7月自然新增用户 3,140 人（环比 -3.15%），社区保持稳定的自然拉新能力，核心用户群体活跃度未受空窗期明显影响。</p>
+    </div>
+    <div class="insight-c orange">
+      <div class="ic-title">发言量随产品节奏回落，空窗期活跃可优化</div>
+      <p>总发言量环比 -12.76%，与6月底至7月无新核心玩法/版本更新的节奏一致。W3-W4 活动衔接期活跃度回落，提示后续可通过轻量常态化活动填补节点之间的空窗。</p>
+    </div>
+  </div>
+
+  <div class="sec-title"><div class="bar"></div><h2>月度数据图表（按周）</h2><span class="sub">W1-W4 数据趋势</span></div>
+
+  <div class="chart-card">
+    <div class="chart-head"><div class="ch-title">月活占比：W2 达峰后随活动周期回落</div><div class="ch-sub">月活占比 % · 各周内有发言或互动的唯一用户占总成员数比例</div></div>
+    <div class="bar-chart">
+      <div class="grid-line" style="bottom:100%;"></div><div class="grid-label" style="bottom:100%;">8%</div>
+      <div class="grid-line" style="bottom:75%;"></div><div class="grid-label" style="bottom:75%;">6%</div>
+      <div class="grid-line" style="bottom:50%;"></div><div class="grid-label" style="bottom:50%;">4%</div>
+      <div class="grid-line" style="bottom:25%;"></div><div class="grid-label" style="bottom:25%;">2%</div>
+      <div class="bar-col"><div class="bar-fill" style="height:85%;background:#6366f1;"><span class="bar-val">6.79%</span></div><div class="bar-xlabel">W1</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:88%;background:#6366f1;"><span class="bar-val">7.04%</span></div><div class="bar-xlabel">W2</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:63%;background:#818cf8;"><span class="bar-val">5.04%</span></div><div class="bar-xlabel">W3</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:46%;background:#a5b4fc;"><span class="bar-val">3.66%</span></div><div class="bar-xlabel">W4</div></div>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-head"><div class="ch-title">7日留存：随世界杯赛事周期温和回落</div><div class="ch-sub">7日留存率 % · 新成员加入后第7天仍留在社区的比例</div></div>
+    <div class="bar-chart">
+      <div class="grid-line" style="bottom:100%;"></div><div class="grid-label" style="bottom:100%;">32%</div>
+      <div class="grid-line" style="bottom:75%;"></div><div class="grid-label" style="bottom:75%;">24%</div>
+      <div class="grid-line" style="bottom:50%;"></div><div class="grid-label" style="bottom:50%;">16%</div>
+      <div class="grid-line" style="bottom:25%;"></div><div class="grid-label" style="bottom:25%;">8%</div>
+      <div class="bar-col"><div class="bar-fill" style="height:93%;background:#f59e0b;"><span class="bar-val">29.7%</span></div><div class="bar-xlabel">W1</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:77%;background:#f59e0b;"><span class="bar-val">24.6%</span></div><div class="bar-xlabel">W2</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:52%;background:#fbbf24;"><span class="bar-val">16.6%</span></div><div class="bar-xlabel">W3</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:8%;background:#e5e7eb;"><span class="bar-val" style="color:#94a3b8;">暂无</span></div><div class="bar-xlabel">W4</div></div>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-head"><div class="ch-title">月消息量 46,235 条，聊天人数 1,656 人</div><div class="ch-sub">辅助活跃度参考 · 左轴：消息数（柱），右轴：聊天人数（折线）</div></div>
+    <div class="bar-chart" style="align-items:flex-end;">
+      <div class="grid-line" style="bottom:100%;"></div><div class="grid-label" style="bottom:100%;">18k</div>
+      <div class="grid-line" style="bottom:66%;"></div><div class="grid-label" style="bottom:66%;">12k</div>
+      <div class="grid-line" style="bottom:33%;"></div><div class="grid-label" style="bottom:33%;">6k</div>
+      <div class="bar-col"><div class="bar-fill" style="height:91%;background:#6366f1;"><span class="bar-val">16,388</span></div><div class="bar-xlabel">W1</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:82%;background:#6366f1;"><span class="bar-val">14,770</span></div><div class="bar-xlabel">W2</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:47%;background:#818cf8;"><span class="bar-val">8,516</span></div><div class="bar-xlabel">W3</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:41%;background:#a5b4fc;"><span class="bar-val">7,453</span></div><div class="bar-xlabel">W4</div></div>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;left:0;top:0;width:100%;height:100%;z-index:3;pointer-events:none;">
+        <polyline points="12.5,7 37.5,25 62.5,27 87.5,29" fill="none" stroke="#10b981" stroke-width="0.8" vector-effect="non-scaling-stroke"/>
+        <circle cx="12.5" cy="7" r="1.1" fill="#10b981"/><circle cx="37.5" cy="25" r="1.1" fill="#10b981"/>
+        <circle cx="62.5" cy="27" r="1.1" fill="#10b981"/><circle cx="87.5" cy="29" r="1.1" fill="#10b981"/>
+      </svg>
+    </div>
+    <div class="chart-legend">
+      <div class="lg"><span class="dot" style="background:#6366f1;"></span>消息数（左轴）</div>
+      <div class="lg"><span class="line-dot" style="background:#10b981;"></span>聊天人数（右轴，557→429）</div>
+    </div>
+  </div>
+
+  <div class="sec-title"><div class="bar"></div><h2>下月提升规划</h2><span class="sub">2026年8月 · 长草期过渡，衔接9月Farline首曝</span></div>
+
+  <div class="highlight-card">
+    <div class="hc-title">月度目标</div>
+    <p>在新内容空白节点进行社区内容填充，结合端内「海滨沙滩」主题上线轻量社区活动维持活跃/留存，逐步预热新玩法；提前拟好舆情口径，为 9 月 Dev Talk 与 9 月底 Farline 首曝构建社区声量基础。</p>
+  </div>
+
+  <div class="strat-row">
+    <div class="strat-c"><div class="strat-num">1</div><div class="st-body"><h5>端内主题 × 社区活动联动</h5><p>配合「海滨沙滩」主题与「椰子末日」小游戏，DC 椰风海岸 + RDT「椰子生存日记」UGC 打卡同步推进，维持社区活跃。</p></div></div>
+    <div class="strat-c"><div class="strat-num">2</div><div class="st-body"><h5>常态化互动降低空窗波动</h5><p>周末 Bot 社区赛正常运转，结合返校季节点策划「校园甜心」互动，填补活动之间的衔接期。</p></div></div>
+    <div class="strat-c"><div class="strat-num">3</div><div class="st-body"><h5>逐步预热为首曝蓄势</h5><p>下旬起通过夏洛特人设与版主引导释放新玩法讨论氛围，为 9 月 Dev Talk 与 Farline 首曝做叙事铺垫。</p></div></div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-c">
+      <div class="wk-head"><span class="wk-num">W1</span><span class="wk-date">8.01-8.08</span></div>
+      <div class="wk-theme">海滨沙滩主题期</div>
+      <ul>
+        <li>椰风海岸翻牌小游戏收尾<span class="chip act">促活</span></li>
+        <li>粉丝二创：英雄夏日/海滩穿搭<span class="chip eco">生态</span></li>
+        <li>椰子生存日记 UGC 打卡<span class="chip ret">留存</span></li>
+      </ul>
+    </div>
+    <div class="week-c">
+      <div class="wk-head"><span class="wk-num">W2</span><span class="wk-date">8.09-8.16</span></div>
+      <div class="wk-theme">返校季互动期</div>
+      <ul>
+        <li>校园甜心 Galgame（AI英雄校园皮肤）<span class="chip act">促活</span></li>
+        <li>讨论：哪个英雄是校园甜心？<span class="chip eco">生态</span></li>
+        <li>周末 Bot 社区赛<span class="chip inc">增量</span></li>
+      </ul>
+    </div>
+    <div class="week-c">
+      <div class="wk-head"><span class="wk-num">W3</span><span class="wk-date">8.17-8.24</span></div>
+      <div class="wk-theme">常态化运营期</div>
+      <ul>
+        <li>小游戏 + 社区赛维持活跃<span class="chip act">促活</span></li>
+        <li>核心玩家调研新玩法期望<span class="chip ret">留存</span></li>
+        <li>三方号发帖引导讨论<span class="chip eco">生态</span></li>
+      </ul>
+    </div>
+    <div class="week-c">
+      <div class="wk-head"><span class="wk-num">W4</span><span class="wk-date">8.25-8.31</span></div>
+      <div class="wk-theme">Dev Talk 预热期</div>
+      <ul>
+        <li>释放新玩法预热信息<span class="chip inc">增量</span></li>
+        <li>夏洛特人设释放零碎线索<span class="chip act">促活</span></li>
+        <li>引导玩家讨论期望模式<span class="chip eco">生态</span></li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===================== TAB 2: 社区活动 ===================== -->
+<section id="t2" class="tab-panel">
+
+  <div class="sec-title"><div class="bar"></div><h2>月度活动总结</h2><span class="sub">2026年7月 · 落地 2 个活动（1 个已收官 / 1 个进行中）</span></div>
+  <div class="card"><div class="card-pad">
+    <div class="sub-block">
+      <div class="sb-title">活动总结</div>
+      <p style="font-size:12.5px;color:#475569;line-height:1.75;">7月社区活动围绕「借势外部热点」与「低门槛互动」两条主线展开。「界外预言家」承接世界杯热度，以竞猜机制驱动持续参与，成为当月参与量最高活动；「椰风海岸」翻牌小游戏于 7.31 上线，配合端内「椰子末日」主题，目前仍在进行中。</p>
+      <div class="stat-inline">
+        <span class="si">活动数量：<b>2</b>个</span>
+        <span class="si">👥 界外预言家参与：<b>3,221</b>人次</span>
+        <span class="si">🎴 椰风海岸翻牌：<b>1,621</b>次（进行中）</span>
+      </div>
+    </div>
+    <div class="sub-block">
+      <div class="sb-title">思考与结论</div>
+      <ul>
+        <li>借势外部热点（世界杯）的竞猜活动契合用户博弈心理，场均 104 人参与，验证了「热点 × 竞猜」模式在空窗期维持活跃的有效性，可复用性中高。</li>
+        <li>界外预言家依托三方 Bot，存在无法向所有参与玩家统一分发奖励的功能限制；后续可考虑依托自研 Bot 提升活动承载能力与奖励发放效率。</li>
+        <li>椰风海岸低门槛、即时反馈的设计带来了较高的人均交互深度（人均约 56 次点击），最终效果将在活动结束（8.8）后完整评估。</li>
+      </ul>
+    </div>
+  </div></div>
+
+  <div class="sec-title"><div class="bar"></div><h2>活动效果 Ranking</h2><span class="sub">已收官活动按综合效果排序 · 进行中活动暂不参与排名</span></div>
+  <div class="card"><div class="card-pad">
+    <table class="rank-table">
+      <thead><tr><th>排名</th><th>活动名称</th><th>参与量</th><th>互动数据</th><th>奖励成本</th><th>效果判断</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="medal">🥇</span> 1</td>
+          <td><b>界外预言家 PunkProphet</b><br><span style="font-size:11px;color:#94a3b8;">6.29-7.20 · 竞猜预测</span></td>
+          <td class="score" style="color:#6366f1;">3,221 人次</td>
+          <td style="font-size:12px;color:#64748b;">31场 / 场均104人<br>打卡654 · 裂变32</td>
+          <td>$260</td>
+          <td><span class="badge-ok">效果优秀</span></td>
+        </tr>
+        <tr>
+          <td><span class="ongoing-tag">进行中</span></td>
+          <td><b>椰风海岸 Coconut Coast</b><br><span style="font-size:11px;color:#94a3b8;">7.31-8.8 · 翻牌小游戏</span></td>
+          <td class="score" style="color:#6366f1;">260 人</td>
+          <td style="font-size:12px;color:#64748b;">1,621次翻牌<br>14,589次点击</td>
+          <td>$210</td>
+          <td><span style="font-size:11px;color:#1d4ed8;font-weight:600;">数据统计中</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="rank-note">注：界外预言家为已收官活动，效果判断基于完整数据；椰风海岸于 7.31 上线，当前为活动初期数据，最终效果待活动结束后评估。</p>
+  </div></div>
+
+  <div class="sec-title"><div class="bar"></div><h2>活动详情</h2><span class="sub">已落地活动完整信息</span></div>
+
+  <div class="act-detail">
+    <div class="ad-head">
+      <div class="ad-badge" style="background:#6366f1;">1</div>
+      <span class="ad-title">界外预言家 PunkProphet</span>
+      <span class="medal">🥇</span>
+      <div class="ad-meta"><span>2026.06.29 - 07.20</span><span>👥 3,221 人次</span><span>🎯 31 场竞猜</span></div>
+    </div>
+    <div class="ad-body">
+      <div class="think-box">💡 <b>思考与优化：</b>活动契合世界杯热点，带动玩家围绕赛果持续参与，效果优秀。核心可优化点在于：世界杯主题存在受众限制（非足球爱好者参与意愿较低）；三方 Bot 功能有限，无法统一分发奖励；后期形式建议增加阶段性变化，避免 31 场竞猜后期形式重复。</div>
+      <div class="detail-grid">
+        <div class="detail-c purple"><div class="dc-label">🎯 活动目的</div><p>借世界杯热点维持社区活跃，以竞猜机制驱动持续参与与博弈互动</p></div>
+        <div class="detail-c blue"><div class="dc-label">📅 活动周期</div><p>2026.06.29 - 07.20（跨 W1-W3）</p></div>
+        <div class="detail-c orange"><div class="dc-label">🎮 具体玩法</div><p>围绕世界杯赛程发起 31 场赛果竞猜，预测正确+排名竞争双重激励</p></div>
+        <div class="detail-c green"><div class="dc-label">📊 活动效果</div><p>3,221 人次参与，场均 104 人，打卡签到 654 次，裂变分享 32 次</p></div>
+      </div>
+      <div style="font-size:12.5px;font-weight:600;color:#475569;margin:6px 0 6px;">活动数据</div>
+      <div class="prog-bar"><div style="width:65%;background:#10b981;"></div><div style="width:23%;background:#60a5fa;"></div><div style="width:12%;background:#f59e0b;"></div></div>
+      <div class="prog-legend">
+        <span class="pl"><span class="dot" style="background:#10b981;"></span>竞猜参与 65%</span>
+        <span class="pl"><span class="dot" style="background:#60a5fa;"></span>打卡签到 23%</span>
+        <span class="pl"><span class="dot" style="background:#f59e0b;"></span>裂变分享 12%</span>
+      </div>
+      <div class="quote-line green">奖励成本 $260（Top10 + 截图传播激励）· 可复用性中高，后续考虑依托自研 Bot 实现自动分发与更丰富互动机制</div>
+    </div>
+  </div>
+
+  <div class="act-detail">
+    <div class="ad-head">
+      <div class="ad-badge" style="background:#f59e0b;">2</div>
+      <span class="ad-title">椰风海岸 Coconut Coast</span>
+      <span class="ongoing-tag">进行中</span>
+      <div class="ad-meta"><span>2026.07.31 - 08.08</span><span>👥 260 人</span><span>🎴 1,621 次翻牌</span></div>
+    </div>
+    <div class="ad-body">
+      <div class="think-box">💡 <b>说明：</b>活动于 7.31 上线，当前展示为活动初期数据，尚未结束。低门槛、即时反馈的设计带来了较高的人均交互深度（人均约 56 次点击）。完整效果与优化结论将在活动结束（8.8）后评估。可优化方向初步观察为：包装锚点与视觉表现形式可进一步升级。</div>
+      <div class="detail-grid">
+        <div class="detail-c purple"><div class="dc-label">🎯 活动目的</div><p>配合端内「椰子末日」主题，以低门槛小游戏促进社区活跃、裂变与留存</p></div>
+        <div class="detail-c blue"><div class="dc-label">📅 活动周期</div><p>2026.07.31 - 08.08（进行中）</p></div>
+        <div class="detail-c orange"><div class="dc-label">🎮 具体玩法</div><p>点击翻牌开椰子拿积分，个人排名 + 抽奖 + 社区里程碑奖励</p></div>
+        <div class="detail-c green"><div class="dc-label">📊 当前数据</div><p>260 人参与，1,621 次完成翻牌，14,589 次点击（截至统计日）</p></div>
+      </div>
+      <div class="quote-line">奖励成本 $210（Top10 + 彩蛋 + 任务身份组 + 社区里程碑）· 可复用性高，最终数据待活动收官后补充</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===================== TAB 3: 社区舆情（聚焦游戏舆情） ===================== -->
+<section id="t3" class="tab-panel">
+
+  <div class="highlight-card">
+    <div class="hc-title">舆情分析口径说明</div>
+    <p>本板块聚焦<b>游戏本体舆情</b>（玩法、平衡、服务器、内容、付费等），而非社区活动舆情。FragPunk 数据基于官方 Discord #main-chat 频道 6,000 条玩家消息抓取分析（覆盖 2026.07.23 - 08.05）；竞品数据基于各竞品高流量聊天频道近期采样。</p>
+  </div>
+
+  <div class="sec-title"><div class="bar"></div><h2>FragPunk 玩家舆情概览</h2><span class="sub">基于 6,000 条 #main-chat 消息 · 关键词情感识别</span></div>
+  <div class="card"><div class="card-pad">
+    <div class="senti-overview">
+      <div class="donut-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#93c5fd" stroke-width="30"/>
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#10b981" stroke-width="30" stroke-dasharray="47 452" transform="rotate(-90 100 100)"/>
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#ef4444" stroke-width="30" stroke-dasharray="24 452" stroke-dashoffset="-47" transform="rotate(-90 100 100)"/>
+          <text x="100" y="94" text-anchor="middle" font-size="26" font-weight="800" fill="#1e293b">84.4%</text>
+          <text x="100" y="116" text-anchor="middle" font-size="12" fill="#94a3b8">中性讨论占比</text>
+        </svg>
+        <div style="display:flex;justify-content:center;gap:16px;margin-top:8px;flex-wrap:wrap;">
+          <span style="font-size:11.5px;color:#64748b;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#10b981;"></span> 正面 10.4%</span>
+          <span style="font-size:11.5px;color:#64748b;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#ef4444;"></span> 负面 5.2%</span>
+          <span style="font-size:11.5px;color:#64748b;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#93c5fd;"></span> 中性 84.4%</span>
+        </div>
+      </div>
+      <div class="senti-read">
+        <div class="sr green"><div class="sr-top">↗ 10.4% 正面</div><p>正面情绪集中在<b>上手体验</b>与<b>老玩家回流</b>：新玩家反馈游戏易上瘾、玩法有别于传统战术射击；回流玩家表达对游戏的喜爱，社区氛围友好包容。</p></div>
+        <div class="sr red"><div class="sr-top">↘ 5.2% 负面</div><p>负面情绪主要指向<b>服务器/掉线</b>（尤其排位场景）、<b>内容新鲜度</b>（期待新地图、淘汰旧图）与<b>付费/BP 进度</b>体验，属体验优化层面而非核心玩法否定。</p></div>
+        <div class="sr blue"><div class="sr-top">— 84.4% 中性</div><p>中性讨论以<b>排位匹配</b>、<b>角色搭配与卡牌机制</b>、日常组队交流为主，构成社区讨论主体，反映核心玩家对玩法钻研的活跃度。</p></div>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="sec-title"><div class="bar"></div><h2>FragPunk 核心讨论话题分布</h2><span class="sub">按提及消息量排序 · 游戏本体维度</span></div>
+  <div class="chart-card">
+    <div class="chart-head"><div class="ch-title">排位匹配与服务器体验是当前讨论焦点</div><div class="ch-sub">话题提及量（条）· #main-chat 关键词聚类</div></div>
+    <div class="bar-chart" style="height:230px;">
+      <div class="grid-line" style="bottom:100%;"></div><div class="grid-label" style="bottom:100%;">210</div>
+      <div class="grid-line" style="bottom:66%;"></div><div class="grid-label" style="bottom:66%;">140</div>
+      <div class="grid-line" style="bottom:33%;"></div><div class="grid-label" style="bottom:33%;">70</div>
+      <div class="bar-col"><div class="bar-fill" style="height:99%;background:#6366f1;"><span class="bar-val">207</span></div><div class="bar-xlabel">排位/匹配</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:59%;background:#818cf8;"><span class="bar-val">124</span></div><div class="bar-xlabel">服务器/掉线</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:38%;background:#a5b4fc;"><span class="bar-val">80</span></div><div class="bar-xlabel">皮肤/外观</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:27%;background:#a5b4fc;"><span class="bar-val">56</span></div><div class="bar-xlabel">卡牌机制</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:23%;background:#c7d2fe;"><span class="bar-val">48</span></div><div class="bar-xlabel">付费/定价</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:20%;background:#c7d2fe;"><span class="bar-val">43</span></div><div class="bar-xlabel">新玩家/活跃</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:13%;background:#c7d2fe;"><span class="bar-val">28</span></div><div class="bar-xlabel">角色/英雄</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:7%;background:#e0e7ff;"><span class="bar-val">14</span></div><div class="bar-xlabel">地图</div></div>
+      <div class="bar-col"><div class="bar-fill" style="height:6%;background:#e0e7ff;"><span class="bar-val">13</span></div><div class="bar-xlabel">平衡性</div></div>
+    </div>
+    <p class="rank-note">「卡牌机制（Lancer Cards）」作为 FragPunk 差异化核心玩法，持续获得玩家自发讨论，是区别于其他战术射击竞品的独特话题资产。</p>
+  </div>
+
+  <div class="sec-title"><div class="bar"></div><h2>FragPunk 舆情详情</h2><span class="sub">正负面话题 TOP3 · 附玩家真实原声</span></div>
+  <div class="card"><div class="card-pad">
+    <div class="senti-detail">
+      <div class="senti-col pos">
+        <h4>🟢 正面话题 TOP3</h4>
+        <div class="senti-topic"><div class="tp-head"><span class="tp-rank">1</span><span class="tp-title">上手体验获新玩家认可</span></div><p class="tp-desc">卡牌机制带来的差异化体验成为新玩家转化亮点，部分原本不玩战术/英雄射击的玩家被吸引留存</p><div class="quote-line green">"I saw it just scrolling through the PS store and tried it, immediately got addicted and normally I HATE tactical/hero shooters" — @ayogloq</div></div>
+        <div class="senti-topic"><div class="tp-head"><span class="tp-rank">2</span><span class="tp-title">老玩家回流情绪积极</span></div><p class="tp-desc">阔别一个赛季后回归的玩家表达对游戏的喜爱，回流体验正向</p><div class="quote-line green">"I'm just coming back after a season away, it's lovely — forgot how much I loved the game" — @.xvoo.</div></div>
+        <div class="senti-topic"><div class="tp-head"><span class="tp-rank">3</span><span class="tp-title">社区氛围友好包容</span></div><p class="tp-desc">老玩家主动欢迎新人、鼓励暂离玩家回归，社区自发形成正向留存氛围</p><div class="quote-line green">"well make that money! frag will be waiting when you come backkkkkk" — @sunnyluvsyouu</div></div>
+      </div>
+      <div class="senti-col neg">
+        <h4>🔴 负面话题 TOP3</h4>
+        <div class="senti-topic"><div class="tp-head"><span class="tp-rank">1</span><span class="tp-title">服务器/掉线（排位场景高频）</span></div><p class="tp-desc">服务器讨论 124 条，掉线问题在排位场景被高频提及，影响竞技体验连贯性</p><div class="quote-line red">"Did anyone get caught in an endless loop of server disconnect in ranked just now?" — @.yummilicious</div></div>
+        <div class="senti-topic"><div class="tp-head"><span class="tp-rank">2</span><span class="tp-title">内容新鲜度：期待新地图</span></div><p class="tp-desc">玩家对现有地图（如 Caesarea）表达疲劳，普遍期待新地图注入以维持新鲜感</p><div class="quote-line red">"we just need a new map to feel refreshed again" · "can we get rid of caesarea"</div></div>
+        <div class="senti-topic"><div class="tp-head"><span class="tp-rank">3</span><span class="tp-title">付费与 BP 进度体验</span></div><p class="tp-desc">部分玩家关注优质皮肤的免费获取途径，以及周 Battle Pass 经验上限的进度体验</p><div class="quote-line red">"is there any way to get actual good skins without spending money😭" · "crashing out over the weekly Battlepass xp limit"</div></div>
+      </div>
+    </div>
+    <div class="think-box" style="margin-top:16px;">💡 <b>舆情结论：</b>FragPunk 玩家舆情整体健康（正负比约 2:1，负面占比仅 5.2%），且负面集中在<b>服务器稳定性与内容更新节奏</b>等可随产品迭代优化的体验层问题，而非核心玩法否定——「卡牌机制」持续获得自发讨论，是稳固的差异化资产。结合 9 月新玩法返场，服务器优化与新地图释放将是提升舆情的两个直接抓手。</div>
+  </div></div>
+
+  <div class="sec-title"><div class="bar"></div><h2>竞品游戏舆情横向对比</h2><span class="sub">FragPunk 核心竞品 · 游戏本体舆情正负比与核心话题</span></div>
+  <div class="card"><div class="card-pad">
+    <table class="comp-table">
+      <thead><tr><th>竞品</th><th>社区规模</th><th>舆情正负比</th><th>核心讨论话题 TOP3（提及量）</th></tr></thead>
+      <tbody>
+        <tr class="row-hl">
+          <td><b>Marvel Rivals</b><br><span style="font-size:11px;color:#94a3b8;">英雄射击 · 最大体量竞品</span></td>
+          <td>4,413,553</td>
+          <td style="color:#f59e0b;font-weight:700;">9.6 : 1</td>
+          <td style="font-size:12px;">meta/平衡(819) · 电竞(392) · 皮肤外观(329)</td>
+        </tr>
+        <tr>
+          <td><b>VALORANT</b><br><span style="font-size:11px;color:#94a3b8;">战术射击+角色机制</span></td>
+          <td>2,509,448</td>
+          <td class="up">16.1 : 1</td>
+          <td style="font-size:12px;">meta/平衡(224) · 电竞(116) · 玩法(68)</td>
+        </tr>
+        <tr>
+          <td><b>Apex Legends</b><br><span style="font-size:11px;color:#94a3b8;">英雄射击+赛季运营</span></td>
+          <td>858,607</td>
+          <td style="color:#f59e0b;font-weight:700;">8.5 : 1</td>
+          <td style="font-size:12px;">meta/平衡(294) · 电竞(154) · 玩法(134)</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="think-box" style="margin-top:14px;">💡 <b>横向洞察：</b>三款竞品的<b>头号讨论话题无一例外都是 meta/平衡性</b>，说明射击品类核心玩家最关注的始终是版本平衡与强度调整——这是射击游戏舆情的通用规律。相比之下，FragPunk 当前头号话题是「排位匹配」与「服务器」，尚停留在<b>体验层</b>而非「平衡性」这一<b>深度玩法层</b>；随着服务器稳定性优化与竞技体验成熟，玩家讨论重心有望向平衡性/meta 迁移，这也是社区走向成熟战术射击生态的标志。Marvel Rivals（4.4M）作为体量最大竞品，其「皮肤外观」进入 TOP3 话题，反映英雄射击品类对角色外观内购的高关注度，可为 FragPunk 的皮肤/外观运营提供参考。</div>
+  </div></div>
+
+</section>
+
+<!-- ===================== TAB 4: MOD 管理员 ===================== -->
+<section id="t4" class="tab-panel">
+
+  <div class="sec-title"><div class="bar"></div><h2>MOD 管理员概览</h2><span class="sub">2026年7月 · 版主团队运营数据</span></div>
+
+  <div class="highlight-card">
+    <div class="hc-title">月度核心判断</div>
+    <p>7月版主团队各项产出（消息量、违规处理等）维持稳定，整体保持平衡。全体 Moderator 个体管理与月产出均达标，工单处理率 100%，成本较 6 月小幅优化，为 8-9 月过渡期的密集型运营（解谜引导、预热叙事、Farline 首曝声量建设）提供了稳定可靠的执行层基础。</p>
+  </div>
+
+  <div class="mod-kpi-row">
+    <div class="mod-kpi"><div class="mk-val">12</div><div class="mk-lbl">版主规模（名）</div></div>
+    <div class="mod-kpi"><div class="mk-val">$255</div><div class="mk-lbl">美金礼品卡奖励</div></div>
+    <div class="mod-kpi"><div class="mk-val">36,000</div><div class="mk-lbl">点券奖励</div></div>
+    <div class="mod-kpi"><div class="mk-val">100%</div><div class="mk-lbl">工单处理率</div></div>
+  </div>
+
+  <div class="sec-title"><div class="bar"></div><h2>产出与成本明细</h2><span class="sub">环比 6 月对比</span></div>
+  <div class="card"><div class="card-pad">
+    <table class="mod-table">
+      <thead><tr><th>维度</th><th>7月</th><th>6月</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td>版主规模</td><td>12 名</td><td>12 名</td><td><span class="badge-ok">稳定</span></td></tr>
+        <tr><td>美金礼品卡奖励</td><td>$255</td><td>$270</td><td><span class="badge-ok">成本优化 -5.6%</span></td></tr>
+        <tr><td>点券奖励</td><td>36,000</td><td>39,000</td><td><span class="badge-ok">成本优化</span></td></tr>
+        <tr><td>个体管理</td><td>全体达标</td><td>—</td><td><span class="badge-ok">达标</span></td></tr>
+        <tr><td>月产出</td><td>全部达标</td><td>—</td><td><span class="badge-ok">达标</span></td></tr>
+        <tr><td>工单处理率</td><td>100%</td><td>100%</td><td><span class="badge-ok">优秀</span></td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <div class="sec-title"><div class="bar"></div><h2>Dev 人设运营</h2><span class="sub">社区人格化互动</span></div>
+  <div class="card"><div class="card-pad">
+    <table class="mod-table">
+      <thead><tr><th>人设</th><th>定位</th><th>7月表现</th><th>8-9月规划角色</th></tr></thead>
+      <tbody>
+        <tr><td><b>KOG</b></td><td>策划向</td><td style="color:#94a3b8;">本月待激活</td><td>策划视角解读新玩法方向</td></tr>
+        <tr><td><b>夏洛特</b></td><td>互动向</td><td>以活动宣传/CTA为主，量化表现体现在活动数据中</td><td>第一人称叙事引导，配合 Dev Talk 与 Farline 预热释放线索</td></tr>
+      </tbody>
+    </table>
+    <div class="sub-block">
+      <div class="sb-title">运营建议</div>
+      <ul>
+        <li>夏洛特人设目前以活动 CTA 为主，8-9 月预热期建议加强「第一人称叙事」，从活动工具升维为社区叙事锚点，提升人设的传播力与二创空间。</li>
+        <li>版主在过渡期将承担核心玩家调研、引导新玩法讨论、参与解谜活动等角色，为 Farline 首曝构建真实社区声量基础。</li>
+      </ul>
+    </div>
+  </div></div>
+
+</section>
+
+<!-- ===================== TAB 5: 竞品动态 ===================== -->
+<section id="t5" class="tab-panel">
+
+  <div class="sec-title"><div class="bar"></div><h2>竞品核心数据</h2><span class="sub">聚焦 FragPunk 核心竞品 · 3 款 · 数据覆盖 2026-07-01 → 2026-08-05</span></div>
+  <div class="card"><div class="card-pad">
+    <table class="comp-table">
+      <thead><tr><th>竞品</th><th>社区规模</th><th>日均消息</th><th>公告数</th><th>舆情正负比</th><th>详情</th></tr></thead>
+      <tbody>
+        <tr class="row-hl">
+          <td><b>Marvel Rivals</b><br><span style="font-size:11px;color:#94a3b8;">英雄射击 · 最大体量竞品</span></td>
+          <td>4,413,553</td><td>~2,000</td><td>242</td><td style="color:#f59e0b;font-weight:700;">9.6 : 1</td>
+          <td><span class="btn-view plain">查看</span></td>
+        </tr>
+        <tr class="row-hl">
+          <td><b>VALORANT</b><br><span style="font-size:11px;color:#94a3b8;">战术射击+角色机制</span></td>
+          <td>2,509,448</td><td>~4,000</td><td>12</td><td class="up">16.1 : 1</td>
+          <td><span class="btn-view active">查看中</span></td>
+        </tr>
+        <tr class="row-hl">
+          <td><b>Apex Legends</b><br><span style="font-size:11px;color:#94a3b8;">英雄射击+赛季运营</span></td>
+          <td>858,607</td><td>~2,000</td><td>16</td><td style="color:#f59e0b;font-weight:700;">8.5 : 1</td>
+          <td><span class="btn-view active">查看中</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="rank-note">数据覆盖各竞品高流量聊天频道近期采样；Marvel Rivals 为 FragPunk 体量最大竞品（4.4M 成员，环比 +1.4%），VALORANT 环比 +2.9%、Apex Legends 环比 +0.8%。</p>
+  </div></div>
+
+  <div class="sec-title"><div class="bar"></div><h2>VALORANT 详细动态</h2><span class="sub">核心动向 · 玩家舆情 · 对标价值最高</span></div>
+  <div class="card"><div class="card-pad">
+    <div class="timeline-2col">
+      <div class="tl-col">
+        <h4>📢 核心公告</h4>
+        <div class="tl-item">
+          <div class="tl-top"><span class="tl-date">2026.07.25</span><span class="tl-heat">+35.6% ↑ 落地后3天</span></div>
+          <div class="tl-title">Night Market 回归公告 🔗</div>
+          <div class="tl-desc">年度 Night Market 活动回归，随机折扣武器皮肤吸引大量回流玩家，为游戏内经济系统核心节点</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><span class="tl-date">2026.07.18</span><span class="tl-heat">+28.3% ↑ 预热期</span></div>
+          <div class="tl-title">新 Agent「Kestrel」技能预览 🔗</div>
+          <div class="tl-desc">新哨兵角色技能组公布（侦查无人机 + 区域封锁烟雾），社区热议战术定位与阵容组合</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><span class="tl-date">2026.07.10</span><span class="tl-heat">+15.2% ↑</span></div>
+          <div class="tl-title">Patch 10.04 地图池轮换 & 武器平衡 🔗</div>
+          <div class="tl-desc">Breeze 回归竞技地图池，Phantom 伤害衰减调整，职业选手第一时间解读 meta 变化</div>
+        </div>
+      </div>
+      <div class="tl-col">
+        <h4>📅 社区活动</h4>
+        <div class="tl-item">
+          <div class="tl-top"><span class="tl-date">07.12 - 07.20</span><span class="tl-heat">参与度 +55%</span></div>
+          <div class="tl-title">VCT 2026 Stage 2 Masters 观赛派对</div>
+          <div class="tl-desc">国际赛事观赛派对覆盖 3 个周末，赛事期间日均消息 +40%</div>
+        </div>
+        <div class="think-box">💡 <b>运营建议：</b>VALORANT 每季度固定运转 Night Market + 新 Agent + 地图轮换三大节点，形成稳定预期 → 稳定回流。FragPunk 可借鉴「周期性经济活动 + 新碎片/角色预告」的双轨驱动模型。</div>
+        <div class="tl-item">
+          <div class="tl-top"><span class="tl-date">07.06 - 07.13</span><span class="tl-heat">参与度 +22%</span></div>
+          <div class="tl-title">Community Skin Bundle 社区皮肤投票</div>
+          <div class="tl-desc">社区共创决定皮肤套装，实现参与感 + UGC 传播双重收益</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><span class="tl-date">07.20 - 08.03</span><span class="tl-heat">参与度 +19%</span></div>
+          <div class="tl-title">Kestrel Concept Art 社区创作赛</div>
+          <div class="tl-desc">新角色主题创作赛，为角色上线预热并沉淀社区 UGC 内容</div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="sec-title"><div class="bar"></div><h2>Apex Legends 详细动态</h2><span class="sub">核心动向 · 玩家舆情 · IP联动 + 赛季运营</span></div>
+  <div class="card"><div class="card-pad">
+    <div class="timeline-2col">
+      <div class="tl-col">
+        <h4>📢 核心公告</h4>
+        <div class="tl-item">
+          <div class="tl-top"><span class="tl-date">2026.07.07</span><span class="tl-heat">+41.2% ↑ 联动上线</span></div>
+          <div class="tl-title">Apex Legends × Cyberpunk 2077 联动活动 🔗</div>
+          <div class="tl-desc">与 Cyberpunk 2077 IP 深度联动，跨 IP 主题皮肤与限时模式拉动大量回流与新进，为当月最强拉新节点</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><span class="tl-date">2026.07.28</span><span class="tl-heat">+18.7% ↑ 赛季预热</span></div>
+          <div class="tl-title">"Become the predator, or become prey" — Marked 新赛季预热 🔗</div>
+          <div class="tl-desc">新赛季 Marked 悬念式预热，社区热议新传奇与玩法方向</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><span class="tl-date">2026.08.04</span><span class="tl-heat">+12.8% ↑</span></div>
+          <div class="tl-title">Apex Legends: Marked 赛季补丁说明 🔗</div>
+          <div class="tl-desc">新赛季正式补丁，传奇平衡与武器调整，社区对平衡方向存在讨论分歧</div>
+        </div>
+      </div>
+      <div class="tl-col">
+        <h4>📅 社区活动</h4>
+        <div class="tl-item">
+          <div class="tl-top"><span class="tl-date">07.03 / 07.10 / 07.25 / 07.30</span><span class="tl-heat">高频运转</span></div>
+          <div class="tl-title">JULY DUOS SERIES 月度双人赛系列</div>
+          <div class="tl-desc">整月高频运转的社区双人赛，稳定承接核心竞技玩家参与，形成固定周期活动预期</div>
+        </div>
+        <div class="think-box">💡 <b>运营建议：</b>Apex 以「跨 IP 联动（爆发拉新）+ 赛季更新（内容承接）+ 月度赛事系列（常态化留存）」三层驱动。联动创造瞬时流量峰值，但需前置评估服务器承载与配套补偿，避免「拉新成功但体验受损」。FragPunk 可借鉴其「高频社区赛系列」维持核心玩家常态活跃。</div>
+        <div class="tl-item">
+          <div class="tl-top"><span class="tl-date">07月 · 持续</span><span class="tl-heat">电竞话题 154</span></div>
+          <div class="tl-title">ALGS 赛事生态 & Twitch 观赛</div>
+          <div class="tl-desc">赛事直播与观赛引导持续拉动电竞话题讨论，电竞为社区第二大讨论话题</div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="sec-title"><div class="bar"></div><h2>玩家舆情</h2><span class="sub">VALORANT & Apex Legends 游戏舆情对比</span></div>
+
+  <div class="card"><div class="card-pad">
+    <div class="senti-overview" style="margin-bottom:20px;">
+      <div class="donut-wrap">
+        <div style="font-size:13px;font-weight:700;color:#5865F2;margin-bottom:8px;">VALORANT · 正负比 16.1:1</div>
+        <svg width="180" height="180" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#e2e8f0" stroke-width="30"/>
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#10b981" stroke-width="30" stroke-dasharray="371 452" transform="rotate(-90 100 100)"/>
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#f59e0b" stroke-width="30" stroke-dasharray="58 452" stroke-dashoffset="-371" transform="rotate(-90 100 100)"/>
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#ef4444" stroke-width="30" stroke-dasharray="23 452" stroke-dashoffset="-429" transform="rotate(-90 100 100)"/>
+          <text x="100" y="94" text-anchor="middle" font-size="24" font-weight="800" fill="#1e293b">82.1%</text>
+          <text x="100" y="115" text-anchor="middle" font-size="11" fill="#94a3b8">正面占比</text>
+        </svg>
+        <div style="display:flex;justify-content:center;gap:12px;margin-top:6px;flex-wrap:wrap;font-size:11px;color:#64748b;">
+          <span>●正面82.1%</span><span>●中性12.9%</span><span>●负面5.0%</span>
+        </div>
+      </div>
+      <div class="senti-detail" style="grid-template-columns:1fr 1fr;">
+        <div class="senti-col pos">
+          <h4>🟢 正面 TOP3</h4>
+          <div class="senti-topic"><div class="tp-head"><span class="tp-rank">1</span><span class="tp-title">Night Market 皮肤折扣体系成熟</span></div><p class="tp-desc">随机折扣+限时机制形成开箱惊喜感，社区自发分享折扣结果二次传播</p></div>
+          <div class="senti-topic"><div class="tp-head"><span class="tp-rank">2</span><span class="tp-title">VCT 赛事生态拉动持续活跃</span></div><p class="tp-desc">Stage 2 Masters 观赛派对期间日均消息 +40%</p></div>
+        </div>
+        <div class="senti-col neg">
+          <h4>🔴 负面 TOP3</h4>
+          <div class="senti-topic"><div class="tp-head"><span class="tp-rank">1</span><span class="tp-title">Phantom 削弱引发反弹</span></div><p class="tp-desc">伤害衰减调整被部分职业选手批评降低枪法上限</p></div>
+          <div class="senti-topic"><div class="tp-head"><span class="tp-rank">2</span><span class="tp-title">皮肤定价体系争议</span></div><p class="tp-desc">部分 Ultra 级皮肤定价突破 $50 引发讨论</p></div>
+        </div>
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid #eef0f5;margin:8px 0 20px;">
+
+    <div class="senti-overview">
+      <div class="donut-wrap">
+        <div style="font-size:13px;font-weight:700;color:#f97316;margin-bottom:8px;">Apex Legends · 正负比 8.5:1</div>
+        <svg width="180" height="180" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#e2e8f0" stroke-width="30"/>
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#10b981" stroke-width="30" stroke-dasharray="342 452" transform="rotate(-90 100 100)"/>
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#f59e0b" stroke-width="30" stroke-dasharray="70 452" stroke-dashoffset="-342" transform="rotate(-90 100 100)"/>
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#ef4444" stroke-width="30" stroke-dasharray="40 452" stroke-dashoffset="-412" transform="rotate(-90 100 100)"/>
+          <text x="100" y="94" text-anchor="middle" font-size="24" font-weight="800" fill="#1e293b">75.6%</text>
+          <text x="100" y="115" text-anchor="middle" font-size="11" fill="#94a3b8">正面占比</text>
+        </svg>
+        <div style="display:flex;justify-content:center;gap:12px;margin-top:6px;flex-wrap:wrap;font-size:11px;color:#64748b;">
+          <span>●正面75.6%</span><span>●中性15.5%</span><span>●负面8.9%</span>
+        </div>
+      </div>
+      <div class="senti-detail" style="grid-template-columns:1fr 1fr;">
+        <div class="senti-col pos">
+          <h4>🟢 正面 TOP3</h4>
+          <div class="senti-topic"><div class="tp-head"><span class="tp-rank">1</span><span class="tp-title">Cyberpunk 2077 联动内容质量高</span></div><p class="tp-desc">跨 IP 主题皮肤与限时模式被视为高质量联动，拉动大量回流与新进</p></div>
+          <div class="senti-topic"><div class="tp-head"><span class="tp-rank">2</span><span class="tp-title">Marked 新赛季玩法更新获期待</span></div><p class="tp-desc">新赛季传奇与玩法调整打开新打法空间，玩法话题活跃（134 条）</p></div>
+        </div>
+        <div class="senti-col neg">
+          <h4>🔴 负面 TOP3</h4>
+          <div class="senti-topic"><div class="tp-head"><span class="tp-rank">1</span><span class="tp-title">联动高峰期服务器稳定性</span></div><p class="tp-desc">联动上线首周高峰时段出现掉线与排队，影响体验</p></div>
+          <div class="senti-topic"><div class="tp-head"><span class="tp-rank">2</span><span class="tp-title">平衡性调整分歧</span></div><p class="tp-desc">meta/平衡为头号话题（294 条），传奇与武器调整方向存在讨论分歧</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="think-box" style="margin-top:20px;">💡 <b>竞品横向启示：</b>VALORANT（16.1:1）与 Apex Legends（8.5:1）分别代表两种维持月活的有效模式——VALORANT 以 Night Market 经济节点构建规律性回流预期，舆情更稳健；Apex 以跨 IP 联动创造爆发性拉新窗口，但联动高峰期服务器压力拉低了负面占比（8.9% vs VALORANT 5.0%），提示联动需前置评估基础设施承载。FragPunk 的碎片系统天然适合做「社区票选返场」，可在 9 月高关注模式返场时同步发起投票，打通社区决策 → 产品落地 → 社交传播闭环。</div>
+  </div></div>
+
+</section>
+
+<div class="container foot">
+  <span>L26 FragPunk Discord 社区月报 · 2026年7月 · 2026.07.01 - 07.31</span>
+  <span>数据来源：Discord API · 竞品社区 · 内部运营数据 ｜ 数据仅供内部参考</span>
+</div>
+
+</main>
+
+<script>
+function showTab(e, id){
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(function(t){ t.classList.remove('active'); });
+  e.currentTarget.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>
